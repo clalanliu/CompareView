@@ -1,4 +1,4 @@
-# WheelViewer
+# PairViewer
 
 > A concise image viewer for image comparison.
 
@@ -7,12 +7,18 @@
 * Convenient to switch compared images by arrow keys or mouse wheel!
 * Easy to reload images by pressing spacebar.
 * Support for multiple images.
+* Enlarge where you want.
 
 **Steps:**
 
 To run the program:
   ```bash
-	python WheelViewer.pyw
+	python PairViewer.pyw
+```
+
+To build the executable file:
+  ```bash
+	pyinstaller -F PairViewer.pyw
 ```
 
 **Usage:**
