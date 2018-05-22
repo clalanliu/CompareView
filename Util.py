@@ -47,7 +47,7 @@ class ImgSeries():
         new_width = event.width
         new_height = event.height
         GlobalVar.width, GlobalVar.height = new_width, new_height
-        im = self.im_copies[self.activeImg].resize((new_width, new_height))
+        im = self.zoomImg.resize((new_width, new_height))
         self.zoomImg = im
         tk_im = ImageTk.PhotoImage(im)
         self.tk_ims[self.activeImg] = tk_im
