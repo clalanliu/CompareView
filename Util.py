@@ -169,6 +169,10 @@ class ImgSeries():
         self.im_zoomPos[self.activeImg] = []
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, image=self.tk_ims[self.activeImg], anchor='nw')
+        GlobalVar.width, GlobalVar.height = self.im_sizes[self.activeImg]
+        self.canvas.config(width=GlobalVar.width, height=GlobalVar.height)
+        self.container.config(width=GlobalVar.width, height=GlobalVar.height)
+        self.container.master.geometry('%dx%d' % (GlobalVar.width, GlobalVar.height))
 
     def ZoomClone(self,event):
         if len(self.im_zoomPos) == 0 :
