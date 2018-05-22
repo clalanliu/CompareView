@@ -1,6 +1,7 @@
 # PairViewer
 
-> A concise image viewer for image comparison.
+> A concise image viewer for image comparison. 
+(Window enlarging is unsupported for the present and hence maximizing the window will result in unexpected error!)
 
 **Key features:**
 
