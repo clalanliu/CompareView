@@ -11,6 +11,8 @@
 * Enlarge where you want.
 
 **Steps:**
+Install necessary package first:
+  Pillow, tkinter
 
 To run the program:
   ```bash
