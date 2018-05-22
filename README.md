@@ -10,19 +10,20 @@
 * Support for multiple images.
 * Enlarge where you want.
 
-**Steps:**
-Install necessary package first:
-  Pillow, tkinter
+**Steps:**  
 
-To run the program:
+Install necessary package first:
+	Pillow, tkinter
+
+* To run the program:
   ```bash
 	python PairViewer.pyw
-```
+	```
 
-To build the executable file:
+* To build the executable file:
   ```bash
 	pyinstaller -F PairViewer.pyw
-```
+	```
 
 **Usage:**
 * Arrow key and mouse wheel: Switch image.
