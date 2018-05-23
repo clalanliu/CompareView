@@ -9,7 +9,7 @@ import Util, GlobalVar
 GlobalVar.width = 540
 GlobalVar.height =360
 root = tk.Tk()
-root.title('WheelViewer')
+root.title('CompareView')
 root.geometry("540x360")
 GlobalVar.DefClr = root.cget("bg")
 imgSeri = Util.ImgSeries(root)
