@@ -49,6 +49,7 @@ class ImgSeries():
         GlobalVar.width, GlobalVar.height = new_width, new_height
         im = self.zoomImg.resize((new_width, new_height))
         self.zoomImg = im
+        self.im_sizes[self.activeImg] = im.size
         tk_im = ImageTk.PhotoImage(im)
         self.tk_ims[self.activeImg] = tk_im
         self.canvas.delete("all")
