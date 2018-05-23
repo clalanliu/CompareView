@@ -90,7 +90,6 @@ class ImgSeries():
         GlobalVar.width, GlobalVar.height = self.im_sizes[index]
         self.canvas.config(width=GlobalVar.width, height=GlobalVar.height)
         self.canvas.master.config(width=GlobalVar.width, height=GlobalVar.height)
-        self.canvas.master.master.geometry('%dx%d' % (GlobalVar.width, GlobalVar.height))
         self.container.config(width=GlobalVar.width, height=GlobalVar.height)
         self.container.master.geometry('%dx%d' % (GlobalVar.width, GlobalVar.height))
 
