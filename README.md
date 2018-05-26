@@ -14,6 +14,9 @@
 
 Install necessary package first:
 	Pillow, tkinter
+	```bash
+	pip install pillow scikit-image numpy 
+	```
 
 * To run the program:
   ```bash

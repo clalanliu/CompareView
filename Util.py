@@ -1,8 +1,5 @@
 import tkinter as tk
 import os
-import PIL.Image
-from PIL import ImageTk, ImageDraw
-from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
 import GlobalVar
 
