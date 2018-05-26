@@ -17,12 +17,12 @@ Install necessary package first:
 
 * To run the program:
   ```bash
-	python PairViewer.pyw
+	python CompairView.pyw
 	```
 
 * To build the executable file:
   ```bash
-	pyinstaller -F PairViewer.pyw
+	pyinstaller -F CompairView.pyw
 	```
 
 **Usage:**
