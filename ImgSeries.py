@@ -10,6 +10,7 @@ class ImgSeries():
     def __init__(self, master):
         self.tk_ims = []
         self.im_copies = []
+        self.im_zoomCopies = []
         self.im_paths = []
         self.im_sizes = []
         self.im_zoomPos = []
@@ -31,8 +32,6 @@ class ImgSeries():
         self.end_x = None
         self.end_y = None
         self.x = self.y = 0
-        self.zoomImg = []
-        self.zoomed = False
 
     def resize_image(self,event):
         if len(self.tk_ims)==0:
@@ -40,8 +39,8 @@ class ImgSeries():
         new_width = event.width
         new_height = event.height
         GlobalVar.width, GlobalVar.height = new_width, new_height
-        im = self.zoomImg.resize((new_width, new_height))
-        self.zoomImg = im
+        im = self.im_zoomCopies[self.activeImg].resize((new_width, new_height))
+        self.im_zoomCopies[self.activeImg] = im
         self.im_sizes[self.activeImg] = im.size
         tk_im = ImageTk.PhotoImage(im)
         self.tk_ims[self.activeImg] = tk_im
@@ -59,7 +58,7 @@ class ImgSeries():
         GlobalVar.width, GlobalVar.height = im.size
         self.im_paths.append(filename)
         self.im_copies.append(im.copy())
-        self.zoomImg = self.im_copies[-1]
+        self.im_zoomCopies.append(im.copy())
         self.im_zoomPos.append([])
         self.im_sizes.append(im.size)
         self.activeImg = len(self.tk_ims)
@@ -74,15 +73,9 @@ class ImgSeries():
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, image=self.tk_ims[index], anchor='nw')
         self.activeImg = index
-        self.zoomImg = self.im_copies[index]
-
-        for i in range(len(self.im_zoomPos[self.activeImg])):
-            im_c = self.zoomImg.crop(self.im_zoomPos[self.activeImg][i])
-            self.zoomImg = im_c.resize((GlobalVar.width, GlobalVar.height))
 
         GlobalVar.width, GlobalVar.height = self.im_sizes[index]
         self.canvas.config(width=GlobalVar.width, height=GlobalVar.height)
-        self.canvas.master.config(width=GlobalVar.width, height=GlobalVar.height)
         self.container.config(width=GlobalVar.width, height=GlobalVar.height)
         self.container.master.geometry('%dx%d' % (GlobalVar.width, GlobalVar.height))
 
@@ -133,9 +126,9 @@ class ImgSeries():
             self.end_y, self.start_y = self.start_y, self.end_y  
         area = (self.start_x, self.start_y, self.end_x, self.end_y)
         self.im_zoomPos[self.activeImg].append(area)
-        im_c = self.zoomImg.crop(area)
+        im_c = self.im_zoomCopies[self.activeImg].crop(area)
         im = im_c.resize((GlobalVar.width, GlobalVar.height))
-        self.zoomImg = im
+        self.im_zoomCopies[self.activeImg] = im
         tk_im = ImageTk.PhotoImage(im)
         self.tk_ims[self.activeImg] = tk_im
         self.canvas.delete("all")
@@ -152,8 +145,8 @@ class ImgSeries():
             return
         if self.rect == None:
             return
-        self.zoomImg = self.im_copies[self.activeImg]
-        tk_im = ImageTk.PhotoImage(self.zoomImg)
+        self.im_zoomCopies[self.activeImg] = self.im_copies[self.activeImg]
+        tk_im = ImageTk.PhotoImage(self.im_zoomCopies[self.activeImg])
         self.tk_ims[self.activeImg] = tk_im
         self.im_zoomPos[self.activeImg] = []
         self.canvas.delete("all")
@@ -172,9 +165,9 @@ class ImgSeries():
             return
         self.im_zoomPos[self.activeImg] = self.im_zoomPos[int(event.char)-1]
         for i in range(len(self.im_zoomPos[self.activeImg])):
-            im_c = self.zoomImg.crop(self.im_zoomPos[self.activeImg][i])
-            self.zoomImg = im_c.resize((GlobalVar.width, GlobalVar.height))
-        tk_im = ImageTk.PhotoImage(self.zoomImg)
+            im_c = self.im_zoomCopies[self.activeImg].crop(self.im_zoomPos[self.activeImg][i])
+            self.im_zoomCopies[self.activeImg] = im_c.resize((GlobalVar.width, GlobalVar.height))
+        tk_im = ImageTk.PhotoImage(self.im_zoomCopies[self.activeImg])
         self.tk_ims[self.activeImg] = tk_im
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, image=self.tk_ims[self.activeImg], anchor='nw')
