@@ -3,7 +3,7 @@ from tkinter import ttk
 from PIL import Image, ImageTk, ImageDraw
 from tkinter.filedialog import askopenfilename
 import glob
-import Util, GlobalVar
+import Util, GlobalVar,ImgSeries,ThumbNailSeries
 
 # root and frame container
 GlobalVar.width = 540
@@ -12,7 +12,7 @@ root = tk.Tk()
 root.title('CompareView')
 root.geometry("540x360")
 GlobalVar.DefClr = root.cget("bg")
-imgSeri = Util.ImgSeries(root)
+imgSeri = ImgSeries.ImgSeries(root)
 
 # Thumbnail window
 thumbWin = tk.Toplevel(root)
@@ -20,7 +20,7 @@ thumbWin.geometry("%dx%d+%d+%d" % (240, root.winfo_screenheight(), root.winfo_sc
 thumbWin.title('Thumbnails')
 thumbWin.protocol('WM_DELETE_WINDOW', lambda:None)
 thumbWin.resizable(False, False)
-thumbNails = Util.ThumbNailSeries(thumbWin, imgSeri)
+thumbNails = ThumbNailSeries.ThumbNailSeries(thumbWin, imgSeri)
 
 # menu bar
 menubar = tk.Menu(root)
@@ -66,14 +66,16 @@ root.bind_all('<Right>', RightKey)
 root.bind_all('<Up>', LeftKey)
 root.bind_all('<Down>', RightKey)
 root.bind_all('<Delete>', DeleteKey)
-root.bind_all('<space>', Reload)
+root.bind_all('<R>', Reload)
+root.bind_all('<r>', Reload)
 root.bind_all('<MouseWheel>', MouseWheel)
 thumbWin.bind_all('<Left>', LeftKey)
 thumbWin.bind_all('<Right>', RightKey)
 thumbWin.bind_all('<Up>', LeftKey)
 thumbWin.bind_all('<Down>', RightKey)
 thumbWin.bind_all('<Delete>', DeleteKey)
-thumbWin.bind_all('<space>', Reload)
+thumbWin.bind_all('<R>', Reload)
+thumbWin.bind_all('<r>', Reload)
 thumbWin.bind_all('<MouseWheel>', MouseWheel)
 
 ### zoom

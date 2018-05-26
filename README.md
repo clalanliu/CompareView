@@ -28,7 +28,7 @@ Install necessary package first:
 **Usage:**
 * Arrow key and mouse wheel: Switch image.
 * Del: Delete the image.
-* Space: Reload the image.
+* R/r: Reload all images.
 * Box out the rectangle and press z/Z: Enlarge the wanted region.
 * Number key: Zoom in the image with the same region of the other image.
 * Double click: Zoom out to the origin one.
