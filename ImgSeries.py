@@ -122,7 +122,7 @@ class ImgSeries():
         del self.im_paths[self.activeImg]
         del self.im_sizes[self.activeImg]
         if len(self.tk_ims)==1:
-            self.refImg = []
+            self.refImg_index = -1
         if self.activeImg<0:
             return
         elif self.activeImg==0 and len(self.tk_ims)==0:
@@ -168,7 +168,7 @@ class ImgSeries():
             messagebox.showinfo("Error", "Two images have different shapes.")
             return
         psnr = compare_psnr(refImg,comp)
-        self.container.master.title('CompareView MSE: %.4f' %psnr)
+        self.container.master.title('CompareView PSNR: %.4f' %psnr)
 
     def CompareSSIM(self):
         if self.refImg_index<0:
@@ -180,7 +180,7 @@ class ImgSeries():
             messagebox.showinfo("Error", "Two images have different shapes.")
             return
         ssim = compare_ssim(refImg,comp,multichannel=True)
-        self.container.master.title('CompareView MSE: %.4f' %ssim)
+        self.container.master.title('CompareView SSIM: %.4f' %ssim)
 
     ### Zoom
     def ZoomIn(self,event):
