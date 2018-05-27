@@ -13,7 +13,7 @@
 
 **Steps:**  
 
-* Install necessary packages first:  
+* Install necessary packages first (python3.5 needed):  
   ```bash
 	pip install numpy pillow scipy scikit-image
 	```
