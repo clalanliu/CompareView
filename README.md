@@ -13,9 +13,8 @@
 
 **Steps:**  
 
-Install necessary package first:
-	Pillow, tkinter
-	```bash
+* Install necessary packages first:  
+  ```bash
 	pip install numpy pillow scipy scikit-image
 	```
 
