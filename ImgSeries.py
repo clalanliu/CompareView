@@ -128,6 +128,9 @@ class ImgSeries():
             return
         refImg = numpy.asarray(self.im_copies[self.refImg_index])
         comp = numpy.asarray(self.im_copies[self.activeImg])
+        if refImg.shape != comp.shape:
+            messagebox.showinfo("Error", "Two images have different shapes.")
+            return
         mse = skimage.measure.compare_mse(refImg,comp)
         self.container.master.title('CompareView MSE: %.4f' %mse)
     
@@ -137,6 +140,9 @@ class ImgSeries():
             return
         refImg = numpy.asarray(self.im_copies[self.refImg_index])
         comp = numpy.asarray(self.im_copies[self.activeImg])
+        if refImg.shape != comp.shape:
+            messagebox.showinfo("Error", "Two images have different shapes.")
+            return
         psnr = skimage.measure.compare_psnr(refImg,comp)
         self.container.master.title('CompareView MSE: %.4f' %psnr)
 
@@ -146,6 +152,9 @@ class ImgSeries():
             return
         refImg = numpy.asarray(self.im_copies[self.refImg_index])
         comp = numpy.asarray(self.im_copies[self.activeImg])
+        if refImg.shape != comp.shape:
+            messagebox.showinfo("Error", "Two images have different shapes.")
+            return
         ssim = skimage.measure.compare_ssim(refImg,comp,multichannel=True)
         self.container.master.title('CompareView MSE: %.4f' %ssim)
 
