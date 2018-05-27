@@ -9,10 +9,21 @@ class ThumbNailSeries(ImgSeries):
     def __init__(self,master,ImgSeri):
         self.tn_ims=[]
         self.tn_btns=[]
+        self.button_row = tk.Frame(master, height = 20, width = 240)
+        self.button_row.pack(fill = "x", anchor = 'nw')
+        self.pU=ImageTk.PhotoImage(file="./icon/UpArrow.png") ## keep a reference!
+        self.pD=ImageTk.PhotoImage(file="./icon/DownArrow.png") ## keep a reference!
+        self.shiftUpBt = tk.Button(self.button_row, image=self.pU,width="20",height="20",anchor=tk.NW)
+        self.shiftDownBt = tk.Button(self.button_row, image=self.pD,width="20",height="20",anchor=tk.NW)
+        self.shiftUpBt.pack(side=tk.LEFT,anchor="n")
+        self.shiftDownBt.pack(side=tk.LEFT,anchor="n")
+        self.shiftUpBt.config(command = lambda: self.ShiftUp())
+
         self.thumb_col = tk.Frame(master)
-        self.thumb_col.pack(expand = True, fill = "both")
+        self.thumb_col.pack(expand = True, fill = "both", anchor = 'nw')
         self.imgseries = ImgSeri
         self.activeTN = -1
+
 
     def color_change(self,i, clr):
         self.tn_btns[i].config(bg=clr)
@@ -49,11 +60,10 @@ class ThumbNailSeries(ImgSeries):
     def ShiftUp(self):
         if self.activeTN > 0:
             self.tn_ims[self.activeTN], self.tn_ims[self.activeTN-1] =  self.tn_ims[self.activeTN-1], self.tn_ims[self.activeTN]
-            self.tn_btns[self.activeTN], self.tn_btns[self.activeTN-1] =  self.tn_btns[self.activeTN-1], self.tn_btns[self.activeTN]
-            self.tn_btns[self.activeTN].pack()
-            self.tn_btns[self.activeTN-1].pack()
-            #self.imgseries.ShiftUp(self.activeTN)
-            self.activeTN -= 1
+            self.tn_btns[self.activeTN].config(image=self.tn_ims[self.activeTN])
+            self.tn_btns[self.activeTN-1].config(image=self.tn_ims[self.activeTN-1])
+            self.imgseries.ShiftUp(self.activeTN)
+            self.Last()
           
 
     def Delete(self):

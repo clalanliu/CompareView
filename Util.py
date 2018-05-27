@@ -2,8 +2,6 @@ import tkinter as tk
 import os
 from tkinter import messagebox
 import GlobalVar
-from skimage.measure import compare_ssim as ssim
-from skimage.measure import compare_mse as mse
 
 
 def combine_funcs(*funcs):

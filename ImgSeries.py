@@ -5,7 +5,9 @@ from PIL import ImageTk, ImageDraw
 from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
 import GlobalVar
-import skimage.measure
+from skimage.measure import compare_mse
+from skimage.measure import compare_psnr
+from skimage.measure import compare_ssim
 import numpy
 
 class ImgSeries():
@@ -90,6 +92,17 @@ class ImgSeries():
         if self.activeImg < len(self.tk_ims)-1:
             self.reshow(self.activeImg+1)
 
+    def ShiftUp(self,index):
+        self.tk_ims[self.activeImg],self.tk_ims[self.activeImg-1] = self.tk_ims[self.activeImg-1],self.tk_ims[self.activeImg]
+        self.im_copies[self.activeImg],self.im_copies[self.activeImg-1] = self.im_copies[self.activeImg-1],self.im_copies[self.activeImg]
+        self.im_zoomCopies[self.activeImg],self.im_zoomCopies[self.activeImg-1] = self.im_zoomCopies[self.activeImg-1],self.im_zoomCopies[self.activeImg]
+        
+        self.im_paths[self.activeImg],self.im_paths[self.activeImg-1] = self.im_paths[self.activeImg-1],self.im_paths[self.activeImg]
+        self.im_sizes[self.activeImg],self.im_sizes[self.activeImg-1] = self.im_sizes[self.activeImg-1],self.im_sizes[self.activeImg]
+        self.im_zoomPos[self.activeImg],self.im_zoomPos[self.activeImg-1] = self.im_zoomPos[self.activeImg-1],self.im_zoomPos[self.activeImg]
+        
+        self.activeImg -= 1
+
     def Delete(self):
         if len(self.tk_ims)==0:
             return
@@ -131,7 +144,7 @@ class ImgSeries():
         if refImg.shape != comp.shape:
             messagebox.showinfo("Error", "Two images have different shapes.")
             return
-        mse = skimage.measure.compare_mse(refImg,comp)
+        mse = compare_mse(refImg,comp)
         self.container.master.title('CompareView MSE: %.4f' %mse)
     
     def ComparePSNR(self):
@@ -143,7 +156,7 @@ class ImgSeries():
         if refImg.shape != comp.shape:
             messagebox.showinfo("Error", "Two images have different shapes.")
             return
-        psnr = skimage.measure.compare_psnr(refImg,comp)
+        psnr = compare_psnr(refImg,comp)
         self.container.master.title('CompareView MSE: %.4f' %psnr)
 
     def CompareSSIM(self):
@@ -155,7 +168,7 @@ class ImgSeries():
         if refImg.shape != comp.shape:
             messagebox.showinfo("Error", "Two images have different shapes.")
             return
-        ssim = skimage.measure.compare_ssim(refImg,comp,multichannel=True)
+        ssim = compare_ssim(refImg,comp,multichannel=True)
         self.container.master.title('CompareView MSE: %.4f' %ssim)
 
     ### Zoom
