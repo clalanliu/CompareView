@@ -46,6 +46,16 @@ class ThumbNailSeries(ImgSeries):
         if self.activeTN < len(self.tn_btns)-1:
             self.ButtonEvent(self.activeTN+1)
 
+    def ShiftUp(self):
+        if self.activeTN > 0:
+            self.tn_ims[self.activeTN], self.tn_ims[self.activeTN-1] =  self.tn_ims[self.activeTN-1], self.tn_ims[self.activeTN]
+            self.tn_btns[self.activeTN], self.tn_btns[self.activeTN-1] =  self.tn_btns[self.activeTN-1], self.tn_btns[self.activeTN]
+            self.tn_btns[self.activeTN].pack()
+            self.tn_btns[self.activeTN-1].pack()
+            #self.imgseries.ShiftUp(self.activeTN)
+            self.activeTN -= 1
+          
+
     def Delete(self):
         if len(self.tn_btns)==0:
             return

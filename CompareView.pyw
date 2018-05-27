@@ -20,6 +20,12 @@ thumbWin.geometry("%dx%d+%d+%d" % (240, root.winfo_screenheight(), root.winfo_sc
 thumbWin.title('Thumbnails')
 thumbWin.protocol('WM_DELETE_WINDOW', lambda:None)
 thumbWin.resizable(False, False)
+
+pU=ImageTk.PhotoImage(file="./icon/UpArrow.png")
+pD=ImageTk.PhotoImage(file="./icon/DownArrow.png")
+shiftUp = tk.Button(thumbWin, image=pU,width="20",height="20",anchor=tk.NW).pack(side=tk.LEFT,anchor="n")
+shiftDown = tk.Button(thumbWin, image=pD,width="20",height="20",anchor=tk.NW).pack(side=tk.LEFT,anchor="n")
+
 thumbNails = ThumbNailSeries.ThumbNailSeries(thumbWin, imgSeri)
 
 
