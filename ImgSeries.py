@@ -93,15 +93,26 @@ class ImgSeries():
             self.reshow(self.activeImg+1)
 
     def ShiftUp(self,index):
-        self.tk_ims[self.activeImg],self.tk_ims[self.activeImg-1] = self.tk_ims[self.activeImg-1],self.tk_ims[self.activeImg]
-        self.im_copies[self.activeImg],self.im_copies[self.activeImg-1] = self.im_copies[self.activeImg-1],self.im_copies[self.activeImg]
-        self.im_zoomCopies[self.activeImg],self.im_zoomCopies[self.activeImg-1] = self.im_zoomCopies[self.activeImg-1],self.im_zoomCopies[self.activeImg]
-        
-        self.im_paths[self.activeImg],self.im_paths[self.activeImg-1] = self.im_paths[self.activeImg-1],self.im_paths[self.activeImg]
-        self.im_sizes[self.activeImg],self.im_sizes[self.activeImg-1] = self.im_sizes[self.activeImg-1],self.im_sizes[self.activeImg]
-        self.im_zoomPos[self.activeImg],self.im_zoomPos[self.activeImg-1] = self.im_zoomPos[self.activeImg-1],self.im_zoomPos[self.activeImg]
-        
-        self.activeImg -= 1
+        if self.activeImg > 0:
+            self.tk_ims[self.activeImg],self.tk_ims[self.activeImg-1] = self.tk_ims[self.activeImg-1],self.tk_ims[self.activeImg]
+            self.im_copies[self.activeImg],self.im_copies[self.activeImg-1] = self.im_copies[self.activeImg-1],self.im_copies[self.activeImg]
+            self.im_zoomCopies[self.activeImg],self.im_zoomCopies[self.activeImg-1] = self.im_zoomCopies[self.activeImg-1],self.im_zoomCopies[self.activeImg] 
+            self.im_paths[self.activeImg],self.im_paths[self.activeImg-1] = self.im_paths[self.activeImg-1],self.im_paths[self.activeImg]
+            self.im_sizes[self.activeImg],self.im_sizes[self.activeImg-1] = self.im_sizes[self.activeImg-1],self.im_sizes[self.activeImg]
+            self.im_zoomPos[self.activeImg],self.im_zoomPos[self.activeImg-1] = self.im_zoomPos[self.activeImg-1],self.im_zoomPos[self.activeImg]
+            
+            self.activeImg -= 1
+
+    def ShiftDown(self,index):
+        if self.activeImg < len(self.tk_ims)-1:
+            self.tk_ims[self.activeImg],self.tk_ims[self.activeImg+1] = self.tk_ims[self.activeIm+1],self.tk_ims[self.activeImg]
+            self.im_copies[self.activeImg],self.im_copies[self.activeImg+1] = self.im_copies[self.activeImg+1],self.im_copies[self.activeImg]
+            self.im_zoomCopies[self.activeImg],self.im_zoomCopies[self.activeImg+1] = self.im_zoomCopies[self.activeImg+1],self.im_zoomCopies[self.activeImg]            
+            self.im_paths[self.activeImg],self.im_paths[self.activeImg+1] = self.im_paths[self.activeImg+1],self.im_paths[self.activeImg]
+            self.im_sizes[self.activeImg],self.im_sizes[self.activeImg+1] = self.im_sizes[self.activeImg+1],self.im_sizes[self.activeImg]
+            self.im_zoomPos[self.activeImg],self.im_zoomPos[self.activeImg+1] = self.im_zoomPos[self.activeImg+1],self.im_zoomPos[self.activeImg]
+            
+            self.activeImg += 1
 
     def Delete(self):
         if len(self.tk_ims)==0:
@@ -203,6 +214,8 @@ class ImgSeries():
         if self.rect == None:
             return
         self.im_zoomCopies[self.activeImg] = self.im_copies[self.activeImg]
+        if self.im_zoomCopies[self.activeImg].size != self.im_sizes[self.activeImg]:
+            self.im_zoomCopies[self.activeImg] = self.im_zoomCopies[self.activeImg].resize(self.im_sizes[self.activeImg])
         tk_im = ImageTk.PhotoImage(self.im_zoomCopies[self.activeImg])
         self.tk_ims[self.activeImg] = tk_im
         self.im_zoomPos[self.activeImg] = []

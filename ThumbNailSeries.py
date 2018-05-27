@@ -18,6 +18,7 @@ class ThumbNailSeries(ImgSeries):
         self.shiftUpBt.pack(side=tk.LEFT,anchor="n")
         self.shiftDownBt.pack(side=tk.LEFT,anchor="n")
         self.shiftUpBt.config(command = lambda: self.ShiftUp())
+        self.shiftDownBt.config(command = lambda: self.ShiftDown())
 
         self.thumb_col = tk.Frame(master)
         self.thumb_col.pack(expand = True, fill = "both", anchor = 'nw')
@@ -64,7 +65,14 @@ class ThumbNailSeries(ImgSeries):
             self.tn_btns[self.activeTN-1].config(image=self.tn_ims[self.activeTN-1])
             self.imgseries.ShiftUp(self.activeTN)
             self.Last()
-          
+    
+    def ShiftDown(self):
+        if self.activeTN < len(self.tn_btns)-1:
+            self.tn_ims[self.activeTN], self.tn_ims[self.activeTN+1] =  self.tn_ims[self.activeTN+1], self.tn_ims[self.activeTN]
+            self.tn_btns[self.activeTN].config(image=self.tn_ims[self.activeTN])
+            self.tn_btns[self.activeTN+1].config(image=self.tn_ims[self.activeTN+1])
+            self.imgseries.ShiftDown(self.activeTN)
+            self.Next()
 
     def Delete(self):
         if len(self.tn_btns)==0:
