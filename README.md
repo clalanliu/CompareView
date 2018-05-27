@@ -1,7 +1,7 @@
 # CompareView
 
 > A concise image viewer for image comparison.   
-(Window maximizing button is unsupported for the present and hence maximizing the window will result in unexpected error! Please resize the window by the mouse if needed.)
+![image](https://github.com/yan88663319/CompareView/blob/master/icon/intGif.gif)
 
 **Key features:**
 
@@ -34,5 +34,7 @@
 * R/r: Reload all images.
 * Box out the rectangle and press z/Z: Enlarge the wanted region.
 * Number key: Zoom in the image with the same region of the other image.
-* Double click: Zoom out to the origin one.
+* Double click: Zoom out to the origin one.  
 
+
+(Window maximizing button is unsupported for the present and hence maximizing the window will result in unexpected error! Please resize the window by the mouse if needed.)
