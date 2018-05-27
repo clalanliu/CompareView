@@ -22,19 +22,17 @@ thumbWin.protocol('WM_DELETE_WINDOW', lambda:None)
 thumbWin.resizable(False, False)
 thumbNails = ThumbNailSeries.ThumbNailSeries(thumbWin, imgSeri)
 
-# menu bar
-menubar = tk.Menu(root)
-filemenu = tk.Menu(menubar, tearoff=0)
-filemenu.add_command(label = 'Open', command = (lambda: Util.combine_funcs( 
-                                                            thumbNails.AddTN(imgSeri.OpenFile())                                  
-                                                            )))
-filemenu.add_command(label = 'Help', command = Util.HelpCallBack)
-filemenu.add_command(label = 'Exit', command = lambda:exit())
-menubar.add_cascade(label = 'File', menu = filemenu)
-root.config(menu=menubar)
 
+### mouse and keyboard event
+def HotkeySetRef(event):
+    imgSeri.SetReference()
+def HotkeyMSE(event):
+    imgSeri.CompareMSE()
+def HotkeyPSNR(event):
+    imgSeri.ComparePSNR()
+def HotkeyOpenFile(event):
+    thumbNails.AddTN(imgSeri.OpenFile())
 
-# mouse and keyboard event  
 def LeftKey(event):
     imgSeri.Last()
     thumbNails.Last()
@@ -60,6 +58,35 @@ def MouseWheel(event):
     if event.num == 4 or event.delta == 120:
         LeftKey(event)
 
+
+# menu bar
+menubar = tk.Menu(root)
+filemenu = tk.Menu(menubar, tearoff=0)
+compmenu = tk.Menu(menubar, tearoff=0)
+filemenu.add_command(label = 'Open', command = lambda: thumbNails.AddTN(imgSeri.OpenFile()),accelerator='Ctrl+O') 
+filemenu.add_command(label = 'Reload', command = lambda:Reload(),accelerator='R')
+filemenu.add_command(label = 'Help', command = Util.HelpCallBack)
+filemenu.add_command(label = 'Exit', command = lambda:exit())
+menubar.add_cascade(label = 'File', menu = filemenu)
+compmenu.add_command(label = 'ZoomIn', command = imgSeri.ZoomIn,accelerator='Z')
+compmenu.add_command(label = 'ZoomOut', command = imgSeri.ZoomBack)
+compmenu.add_command(label = 'SetReference', command = imgSeri.SetReference,accelerator='S')
+compmenu.add_command(label = 'MSE', command = imgSeri.CompareMSE,accelerator='M')
+compmenu.add_command(label = 'PSNR', command = imgSeri.ComparePSNR,accelerator='P')
+compmenu.add_command(label = 'SSIM', command = imgSeri.CompareSSIM)
+menubar.add_cascade(label = 'Compare', menu = compmenu)
+root.config(menu=menubar)
+
+
+### Hot key
+root.bind_all('<Control-O>', HotkeyOpenFile)
+root.bind_all('<Control-o>', HotkeyOpenFile)
+root.bind_all('<S>', HotkeySetRef)
+root.bind_all('<s>', HotkeySetRef)
+root.bind_all('<M>', HotkeyMSE)
+root.bind_all('<m>', HotkeyMSE)
+root.bind_all('<P>', HotkeyPSNR)
+root.bind_all('<p>', HotkeyPSNR)
 ### switch
 root.bind_all('<Left>', LeftKey)
 root.bind_all('<Right>', RightKey)

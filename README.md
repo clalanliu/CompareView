@@ -9,13 +9,14 @@
 * Easy to reload images by pressing spacebar.
 * Support for multiple images.
 * Enlarge where you want.
+* Quick MSE, PSNR, SSIM evaluation.
 
 **Steps:**  
 
 Install necessary package first:
 	Pillow, tkinter
 	```bash
-	pip install pillow scikit-image numpy 
+	pip install numpy pillow scipy scikit-image
 	```
 
 * To run the program:
@@ -35,3 +36,4 @@ Install necessary package first:
 * Box out the rectangle and press z/Z: Enlarge the wanted region.
 * Number key: Zoom in the image with the same region of the other image.
 * Double click: Zoom out to the origin one.
+

@@ -5,6 +5,8 @@ from PIL import ImageTk, ImageDraw
 from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
 import GlobalVar
+import skimage.measure
+import numpy
 
 class ImgSeries():
     def __init__(self, master):
@@ -14,6 +16,7 @@ class ImgSeries():
         self.im_paths = []
         self.im_sizes = []
         self.im_zoomPos = []
+        self.refImg_index = -1
         self.container = tk.Frame(master)
         self.container.pack(expand = True, fill = "both")
         self.container.bind('<Configure>', self.resize_image)
@@ -94,6 +97,8 @@ class ImgSeries():
         del self.im_copies[self.activeImg]
         del self.im_paths[self.activeImg]
         del self.im_sizes[self.activeImg]
+        if len(self.tk_ims)==1:
+            self.refImg = []
         if self.activeImg<0:
             return
         elif self.activeImg==0 and len(self.tk_ims)==0:
@@ -113,6 +118,36 @@ class ImgSeries():
             self.im_copies[i] = im.copy()
             self.tk_ims[i] = ImageTk.PhotoImage(im)
             self.reshow(i)
+
+    def SetReference(self):
+        self.refImg_index = self.activeImg
+
+    def CompareMSE(self):
+        if self.refImg_index<0:
+            messagebox.showinfo("Error", "Please set reference first.")
+            return
+        refImg = numpy.asarray(self.im_copies[self.refImg_index])
+        comp = numpy.asarray(self.im_copies[self.activeImg])
+        mse = skimage.measure.compare_mse(refImg,comp)
+        self.container.master.title('CompareView MSE: %.4f' %mse)
+    
+    def ComparePSNR(self):
+        if self.refImg_index<0:
+            messagebox.showinfo("Error", "Please set reference first.")
+            return
+        refImg = numpy.asarray(self.im_copies[self.refImg_index])
+        comp = numpy.asarray(self.im_copies[self.activeImg])
+        psnr = skimage.measure.compare_psnr(refImg,comp)
+        self.container.master.title('CompareView MSE: %.4f' %psnr)
+
+    def CompareSSIM(self):
+        if self.refImg_index<0:
+            messagebox.showinfo("Error", "Please set reference first.")
+            return
+        refImg = numpy.asarray(self.im_copies[self.refImg_index])
+        comp = numpy.asarray(self.im_copies[self.activeImg])
+        ssim = skimage.measure.compare_ssim(refImg,comp,multichannel=True)
+        self.container.master.title('CompareView MSE: %.4f' %ssim)
 
     ### Zoom
     def ZoomIn(self,event):
