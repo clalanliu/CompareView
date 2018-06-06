@@ -1,7 +1,7 @@
-# ImPairView
+# CompareView
 
 > A concise image viewer for image comparison.   
-![image](https://github.com/yan88663319/ImPairView/blob/master/icon/intGif.gif)
+![image](https://github.com/yan88663319/CompareView/blob/master/icon/intGif.gif)
 
 **Key features:**
 
