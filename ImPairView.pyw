@@ -8,7 +8,7 @@ import Util, GlobalVar,ImgSeries,ThumbNailSeries
 GlobalVar.width = 540
 GlobalVar.height =360
 root = tk.Tk()
-root.title('CompareView')
+root.title('ImPairView')
 root.geometry("540x360")
 GlobalVar.DefClr = root.cget("bg")
 imgSeri = ImgSeries.ImgSeries(root)
