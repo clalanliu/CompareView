@@ -20,12 +20,12 @@
 
 * To run the program:
   ```bash
-	python CompairView.pyw
+	python CompareView.pyw
 	```
 
 * To build the executable file:
   ```bash
-	pyinstaller -F CompairView.pyw
+	pyinstaller -F CompareView.pyw
 	```
 
 **Usage:**
@@ -33,7 +33,7 @@
 * Del: Delete the image.
 * R/r: Reload all images.
 * Box out the rectangle and press z/Z: Enlarge the wanted region.
-* Number key: Zoom in the image with the same region of the other image.
+* Number key: Zoom in the other image with the same region of the image specified by the number.
 * Double click: Zoom out to the origin one.  
 
 

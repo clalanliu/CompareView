@@ -26,6 +26,7 @@ class ImgSeries():
         self.canvas.pack(fill="both", expand=True)
         self.canvas.grid(row = 0, column = 0, sticky=tk.W+tk.E+tk.N+tk.S)
         self.activeImg = -1
+        self.last_open_dir = os.getcwd()
 
         ### rectangle zooming
         self.canvas.bind("<ButtonPress-1>", self.on_button_press)
@@ -55,10 +56,12 @@ class ImgSeries():
         self.canvas.config(width=GlobalVar.width, height=GlobalVar.height)
 
     def OpenFile(self):
-        filename = askopenfilename(initialdir=os.getcwd(),
-                            filetypes =(("Image File", "*.jpeg;*.jpg;*.png"),("All Files","*.*")),
-                            title="Select file"
+        
+        filename = askopenfilename(initialdir=self.last_open_dir,
+                            filetypes =(("Image File", "*.jpeg;*.jpg;*.png;*.bmp"),("All Files","*.*")),
+                            title="Select file",
                             )
+        self.last_open_dir = os.path.dirname(os.path.normpath(filename))
         im = PIL.Image.open(filename)
         GlobalVar.width, GlobalVar.height = im.size
         self.im_paths.append(filename)
@@ -72,6 +75,7 @@ class ImgSeries():
         self.canvas.config(width=GlobalVar.width, height=GlobalVar.height)
         self.container.config(width=GlobalVar.width, height=GlobalVar.height)
         self.container.master.geometry('%dx%d' % (GlobalVar.width, GlobalVar.height))
+        self.container.master.title('CompareView   ' + filename)
         return im
     
     def reshow(self, index):
@@ -83,6 +87,7 @@ class ImgSeries():
         self.canvas.config(width=GlobalVar.width, height=GlobalVar.height)
         self.container.config(width=GlobalVar.width, height=GlobalVar.height)
         self.container.master.geometry('%dx%d' % (GlobalVar.width, GlobalVar.height))
+        self.container.master.title('CompareView   ' + self.im_paths[index])
 
     def Last(self):
         if self.activeImg > 0:

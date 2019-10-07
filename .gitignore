@@ -3,3 +3,4 @@ build/*
 dist/*
 .vscode/*
 ImPairView.spec
+CompareView.spec
